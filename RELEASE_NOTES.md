@@ -1,10 +1,10 @@
-# v0.18.0 测试版
+# FlClash Select v0.18.1（Windows 修复版）
 
-- 新增 Android arm64 APK：独立应用 ID 与签名；订阅、节点选择、延迟测试、VPN 和规则。
-- Android 将选择性代理卡片改为代理连接监控：应用、域名/IP、规则/节点和流量，过滤直连与拒绝；Windows 选择性代理功能保留。
-- Windows / Android 更新检查改为 Xiao-Yanjiu/FlClashSelect，包含测试版并分别匹配 Windows 免安装 ZIP、Android APK，失败明确提示。
-- Windows 包内目录 FlClashSelect-v0.18；首次默认关闭自启动、静默启动和自动运行；1400×720 初始仪表盘保留。
+- 修复免安装版继承系统共用设置导致静默启动、自动运行的问题。设置独立保存在 select-data/shared_preferences.json。
+- 首次解压默认关闭自启动、静默启动、自动运行。已有本地数据库首次升级迁移旧配置并关闭这三项；独立设置保存后按用户选择运行。
+- ZIP 内目录为 FlClashSelect-v0.18.1；不含订阅、节点账号、个人数据或签名私钥。
+- Windows 与 Android 从本仓库 Releases 检测对应平台更新。检测后提示下载，不自动覆盖或安装。
+- Android APK 继续使用 [v0.18.0](https://github.com/Xiao-Yanjiu/FlClashSelect/releases/tag/v0.18.0)，ARM64 / Android 7+。监控为每秒代理连接快照，可能遗漏极短连接；尚未在真机验证。
+- GNU GPL v3；保留 FlClash 和第三方署名，见 LICENSE、THIRD_PARTY_NOTICES.md、BUILDING.md。
 
-GPL v3 衍生项目，保留 FlClash 作者署名和第三方许可。Windows 与 Android 部分原生组件复用匹配上游发布，来源、SHA256 和对应源码完整提供。APK 不含 Windows 拦截驱动或下载测速 EXE；原作者 Firebase 配置不用于本应用。
-
-监控每秒读取内核快照，可能遗漏极短连接；未知应用或域名不猜测，显示未知/IP。真机网络功能需要用户环境验证。更新检查提示下载，不自动安装或覆盖。
+Windows 更新前备份 select-data，关闭旧版后解压新目录，按需迁移 select-data。选择性代理需要管理员权限，域名识别受 DNS 缓存和加密 DNS 影响。

@@ -6,6 +6,8 @@ import 'package:fl_clash/pages/error.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rust_api/rust_api.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
+import 'common/windows_preferences.dart';
 
 import 'application.dart';
 import 'bootstrap.dart';
@@ -16,6 +18,14 @@ void main(List<String> args) {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      if (Platform.isWindows) {
+        SharedPreferencesStorePlatform.instance = await WindowsPreferences.open(
+          File(await appPath.sharedPreferencesPath),
+          migrateExistingInstallation:
+              !safeModeBuild && await File(await appPath.databasePath).exists(),
+          legacy: SharedPreferencesStorePlatform.instance,
+        );
+      }
       if (Platform.isLinux) {
         linkManager.seedInitialLink(args);
       }

@@ -4,9 +4,9 @@
 
 ## 下载
 
-[v0.18.0 测试版：Windows x64 免安装包、Android arm64 APK 和源码](https://github.com/Xiao-Yanjiu/FlClashSelect/releases/tag/v0.18.0)
+[Windows v0.18.1 免安装包和源码](https://github.com/Xiao-Yanjiu/FlClashSelect/releases/tag/v0.18.1) · [Android v0.18.0 APK](https://github.com/Xiao-Yanjiu/FlClashSelect/releases/tag/v0.18.0)
 
-下载 `FlClashSelect-0.18-windows-portable.zip`，解压整个目录后运行 `FlClashSelect.exe`。更新前备份 `select-data`，退出旧版本后启动新版本。发布包不包含订阅、节点账号或个人设置。首次默认窗口为 **1400×720**。
+下载 `FlClashSelect-0.18.1-windows-portable.zip`，解压整个目录后运行 `FlClashSelect.exe`。更新前备份 `select-data`，退出旧版本后启动新版本。发布包不包含订阅、节点账号或个人设置。首次默认窗口为 **1400×720**。
 
 ## 功能
 
@@ -35,7 +35,7 @@
 问题请提交到 [本仓库 Issues](https://github.com/Xiao-Yanjiu/FlClashSelect/issues)，附版本、Windows 版本、复现步骤和已脱敏的日志。
 
 
-免安装包内目录为 `FlClashSelect-v0.18`。首次启动默认关闭“自启动”“静默启动”“自动运行”，窗口正常显示，请先添加订阅或配置。升级并保留旧 `select-data` 时会保留用户之前的设置；可在“工具 → 常规设置 → 启动与后台”手动关闭这三项。
+免安装包内目录为 `FlClashSelect-v0.18.1`。首次启动默认关闭“自启动”“静默启动”“自动运行”，窗口正常显示，请先添加订阅或配置。Windows 设置独立保存在 `select-data/shared_preferences.json`，新解压目录不会读取其他安装的设置。已有 `select-data/database.sqlite` 且没有独立设置文件时，仅迁移旧配置与版本记录，保留配置选择，并关闭这三项；之后尊重用户保存的设置。旧系统设置文件不修改。
 
 
 ## Android 与更新
