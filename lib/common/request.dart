@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:fl_clash/select/github_updates.dart';
 
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
@@ -20,7 +21,13 @@ class Request {
   }
 
   Request() {
-    dio = Dio(BaseOptions(headers: {'User-Agent': browserUa}));
+    dio = Dio(
+      BaseOptions(
+        headers: {'User-Agent': browserUa},
+        connectTimeout: const Duration(seconds: 12),
+        receiveTimeout: const Duration(seconds: 20),
+      ),
+    );
     _clashDio = Dio();
     _clashDio.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
@@ -36,6 +43,7 @@ class Request {
         return client;
       },
     );
+    dio.httpClientAdapter = _clashDio.httpClientAdapter;
   }
 
   Future<Response<Uint8List>> getFileResponseForUrl(String url) async {
@@ -70,21 +78,22 @@ class Request {
 
   Future<Map<String, dynamic>?> checkForUpdate() async {
     try {
-      final response = await dio.get(
-        'https://api.github.com/repos/$repository/releases/latest',
+      final response = await dio.get<List<dynamic>>(
+        'https://api.github.com/repos/$repository/releases?per_page=100',
         options: Options(responseType: ResponseType.json),
       );
-      if (response.statusCode != 200) return null;
-      final data = response.data as Map<String, dynamic>;
-      final remoteVersion = data['tag_name'];
-      final version = globalState.packageInfo.version;
-      final hasUpdate =
-          compareVersions(remoteVersion.replaceAll('v', ''), version) > 0;
-      if (!hasUpdate) return null;
-      return data;
+      if (response.statusCode != 200 || response.data == null) {
+        throw StateError('GitHub update request failed');
+      }
+      return selectGithubUpdate(
+        response.data!,
+        currentVersion: selectVersion,
+        android: Platform.isAndroid,
+        repository: repository,
+      );
     } catch (e) {
       commonPrint.log('checkForUpdate failed', logLevel: LogLevel.warning);
-      return null;
+      return {'select_update_error': true};
     }
   }
 }

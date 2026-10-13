@@ -6987,6 +6987,56 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Proxy connection monitor`
+  String get proxyMonitorTitle {
+    return Intl.message(
+      'Proxy connection monitor',
+      name: 'proxyMonitorTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rule / node`
+  String get proxyMonitorRoute {
+    return Intl.message(
+      'Rule / node',
+      name: 'proxyMonitorRoute',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No observed proxy connections`
+  String get proxyMonitorEmpty {
+    return Intl.message(
+      'No observed proxy connections',
+      name: 'proxyMonitorEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown app`
+  String get proxyMonitorUnknown {
+    return Intl.message(
+      'Unknown app',
+      name: 'proxyMonitorUnknown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to check GitHub updates. Check your connection and retry.`
+  String get selectUpdateFailed {
+    return Intl.message(
+      'Unable to check GitHub updates. Check your connection and retry.',
+      name: 'selectUpdateFailed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

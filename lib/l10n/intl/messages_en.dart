@@ -1096,6 +1096,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "proxyGroupNameDuplicate": MessageLookupByLibrary.simpleMessage(
       "Duplicate proxy group name",
     ),
+    "proxyMonitorEmpty": MessageLookupByLibrary.simpleMessage(
+      "No observed proxy connections",
+    ),
+    "proxyMonitorRoute": MessageLookupByLibrary.simpleMessage("Rule / node"),
+    "proxyMonitorTitle": MessageLookupByLibrary.simpleMessage(
+      "Proxy connection monitor",
+    ),
+    "proxyMonitorUnknown": MessageLookupByLibrary.simpleMessage("Unknown app"),
     "proxyNode": MessageLookupByLibrary.simpleMessage("Proxy node"),
     "proxyProviders": MessageLookupByLibrary.simpleMessage("Proxy providers"),
     "proxyProvidersEmpty": MessageLookupByLibrary.simpleMessage(
@@ -1452,6 +1460,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectTypeProcess": MessageLookupByLibrary.simpleMessage("Program"),
     "selectUnknownDomain": MessageLookupByLibrary.simpleMessage(
       "Domain unavailable",
+    ),
+    "selectUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Unable to check GitHub updates. Check your connection and retry.",
     ),
     "selectWaiting": MessageLookupByLibrary.simpleMessage("Waiting for core"),
     "selected": MessageLookupByLibrary.simpleMessage("Selected"),

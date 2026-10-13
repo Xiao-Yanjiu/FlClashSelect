@@ -927,6 +927,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "proxyGroupNameDuplicate": MessageLookupByLibrary.simpleMessage(
       "プロキシグループ名が重複しています",
     ),
+    "proxyMonitorEmpty": MessageLookupByLibrary.simpleMessage("プロキシ接続はまだありません"),
+    "proxyMonitorRoute": MessageLookupByLibrary.simpleMessage("ルール / ノード"),
+    "proxyMonitorTitle": MessageLookupByLibrary.simpleMessage("プロキシ接続モニター"),
+    "proxyMonitorUnknown": MessageLookupByLibrary.simpleMessage("不明なアプリ"),
     "proxyNode": MessageLookupByLibrary.simpleMessage("プロキシノード"),
     "proxyProviders": MessageLookupByLibrary.simpleMessage("プロキシプロバイダー"),
     "proxyProvidersEmpty": MessageLookupByLibrary.simpleMessage(
@@ -1212,6 +1216,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectTypeDomain": MessageLookupByLibrary.simpleMessage("ドメイン"),
     "selectTypeProcess": MessageLookupByLibrary.simpleMessage("アプリ"),
     "selectUnknownDomain": MessageLookupByLibrary.simpleMessage("ドメイン不明"),
+    "selectUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "GitHub 更新を確認できません。接続を確認して再試行してください。",
+    ),
     "selectWaiting": MessageLookupByLibrary.simpleMessage("コア待機中"),
     "selected": MessageLookupByLibrary.simpleMessage("選択済み"),
     "selectedCountTitle": m49,

@@ -442,7 +442,7 @@ class GeneralView extends ConsumerWidget {
         select: (state) => state.openLogs,
         update: (state, value) => state.copyWith(openLogs: value),
       ),
-      if (system.isAndroid)
+      if (system.isAndroid && selectCrashlyticsAvailable)
         _appSettingToggle(
           title: (l) => l.crashlytics,
           subtitle: (l) => l.crashlyticsTip,

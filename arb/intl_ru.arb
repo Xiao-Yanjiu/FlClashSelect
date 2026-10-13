@@ -835,5 +835,10 @@
   "selectProxyPanel": "Карточка прокси",
   "selectLiveSpeed": "Скорость прокси",
   "selectAccumulatedTraffic": "Накопленный трафик",
-  "trafficSummary": "Скорость и трафик"
+  "trafficSummary": "Скорость и трафик",
+  "proxyMonitorTitle": "Монитор подключений прокси",
+  "proxyMonitorRoute": "Правило / узел",
+  "proxyMonitorEmpty": "Подключений прокси пока нет",
+  "proxyMonitorUnknown": "Неизвестное приложение",
+  "selectUpdateFailed": "Не удалось проверить обновления GitHub. Проверьте соединение и повторите."
 }

@@ -7,3 +7,6 @@
 - 当前 Windows 原始包 SHA256：`9ff3a9315b51e6665669bfde9b0323ddb671a22d0a9647987b4cc5e574007f4f`。
 
 本项目保留以上作者、许可和来源，不是 FlClash 官方发布。新增修改沿用根目录 GPL v3；第三方原有许可仍适用。
+
+
+Android v0.18 原生组件复用同一 FlClash v0.8.99 官方 arm64 APK，校验出处详见 ANDROID_NATIVE_PROVENANCE.json；Kotlin/Java 和 Flutter UI 为本项目修改并重新编译。

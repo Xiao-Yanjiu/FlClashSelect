@@ -220,7 +220,7 @@ class Bootstrap {
   }
 
   Future<void> _showCrashlyticsTip() async {
-    if (!system.isAndroid) return;
+    if (!system.isAndroid || !selectCrashlyticsAvailable) return;
     if (_container.read(
       appSettingProvider.select((state) => state.crashlyticsTip),
     )) {

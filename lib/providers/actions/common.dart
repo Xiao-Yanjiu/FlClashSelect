@@ -122,6 +122,15 @@ class CommonAction extends _$CommonAction {
     Map<String, dynamic>? data,
     bool isUser = false,
   }) async {
+    if (data?['select_update_error'] == true) {
+      if (isUser) {
+        await dialogs.showMessage(
+          title: currentAppLocalizations.checkUpdate,
+          message: TextSpan(text: currentAppLocalizations.selectUpdateFailed),
+        );
+      }
+      return;
+    }
     if (data != null) {
       final context = globalState.navigatorKey.currentContext!;
       final res = await dialogs.showMessage(
@@ -135,11 +144,7 @@ class CommonAction extends _$CommonAction {
         cancelText: isUser ? null : currentAppLocalizations.noLongerRemind,
       );
       if (res == true) {
-        unawaited(
-          launchUrl(
-            Uri.parse('https://github.com/$repository/releases/latest'),
-          ),
-        );
+        unawaited(launchUrl(Uri.parse(data['select_download_url'] as String)));
       } else if (!isUser && res == false) {
         ref
             .read(appSettingProvider.notifier)

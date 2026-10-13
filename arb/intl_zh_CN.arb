@@ -835,5 +835,10 @@
   "selectProxyPanel": "代理卡片",
   "selectLiveSpeed": "实时代理网络速度",
   "selectAccumulatedTraffic": "累计流量统计",
-  "trafficSummary": "速度与流量"
+  "trafficSummary": "速度与流量",
+  "proxyMonitorTitle": "代理连接监控",
+  "proxyMonitorRoute": "规则 / 节点",
+  "proxyMonitorEmpty": "暂无已观测的代理连接",
+  "proxyMonitorUnknown": "未知应用",
+  "selectUpdateFailed": "无法检测 GitHub 更新，请检查网络后重试。"
 }

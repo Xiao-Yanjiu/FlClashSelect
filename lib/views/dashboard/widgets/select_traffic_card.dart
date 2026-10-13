@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:fl_clash/select/proxy_monitor.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_clash/providers/providers.dart';
 import 'package:fl_clash/enum/enum.dart';
@@ -14,13 +16,15 @@ import '../widget_metrics.dart';
 
 class SelectTrafficCard extends ConsumerStatefulWidget {
   final Future<Map<String, dynamic>> Function()? reader;
-  const SelectTrafficCard({super.key, this.reader});
+  final bool? monitor;
+  const SelectTrafficCard({super.key, this.reader, this.monitor});
   @override
   ConsumerState<SelectTrafficCard> createState() => _SelectTrafficCardState();
 }
 
 class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
   final _meter = SelectTrafficMeter();
+  bool get _monitor => widget.monitor ?? Platform.isAndroid;
   Timer? _timer;
   bool _reading = false;
   List<SelectTraffic> _rows = [];
@@ -117,8 +121,22 @@ class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
     if (_reading) return;
     _reading = true;
     try {
-      final snapshot = await (widget.reader ?? selectService.traffic)();
-      if (widget.reader == null) {
+      final snapshot = widget.reader != null
+          ? await widget.reader!()
+          : _monitor
+          ? proxyMonitorSnapshot(
+              ref.read(isStartProvider)
+                  ? await ref.read(coreHandlerProvider).getConnections()
+                  : [],
+              DateTime.now(),
+              currentAppLocalizations.proxyMonitorUnknown,
+            )
+          : await selectService.traffic();
+      if (_monitor && !ref.read(isStartProvider)) {
+        _ledger.clear();
+        _activity.clear();
+      }
+      if (widget.reader == null && !_monitor) {
         final status = await selectService.status();
         if (mounted)
           _enabled =
@@ -130,6 +148,11 @@ class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
           _rows = rows;
           for (final row in rows) {
             _ledger[row.id] = row;
+            if (_ledger.length > 2000) {
+              final oldest = _ledger.keys.first;
+              _ledger.remove(oldest);
+              _activity.remove(oldest);
+            }
             _activity[row.id] = DateTime.parse(
               snapshot['updated'] as String,
             ).subtract(Duration(milliseconds: row.ageMs));
@@ -195,20 +218,23 @@ class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
                     child: InfoHeader(
                       padding: EdgeInsets.zero,
                       info: Info(
-                        label: l.selectTrafficTitle,
+                        label: _monitor
+                            ? l.proxyMonitorTitle
+                            : l.selectTrafficTitle,
                         glyph: AppGlyphs.networkCheck,
                       ),
                     ),
                   ),
-                  Switch(
-                    key: const ValueKey('select-engine-toggle'),
-                    padding: EdgeInsets.zero,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value: _enabled,
-                    onChanged: _busy
-                        ? null
-                        : (value) => unawaited(_toggle(value)),
-                  ),
+                  if (!_monitor)
+                    Switch(
+                      key: const ValueKey('select-engine-toggle'),
+                      padding: EdgeInsets.zero,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      value: _enabled,
+                      onChanged: _busy
+                          ? null
+                          : (value) => unawaited(_toggle(value)),
+                    ),
                 ],
               ),
               const SizedBox(height: 4),
@@ -227,7 +253,7 @@ class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
                   for (final (index, title) in [
                     l.selectTypeProcess,
                     l.selectTypeDomain,
-                    l.selectMatchedRule,
+                    _monitor ? l.proxyMonitorRoute : l.selectMatchedRule,
                   ].indexed)
                     Expanded(
                       flex: index == 0 ? 3 : 4,
@@ -275,7 +301,12 @@ class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
                     if (rows.isEmpty) {
                       return Align(
                         alignment: Alignment.topLeft,
-                        child: Text(l.selectNoActiveTraffic, style: style),
+                        child: Text(
+                          _monitor
+                              ? l.proxyMonitorEmpty
+                              : l.selectNoActiveTraffic,
+                          style: style,
+                        ),
                       );
                     }
                     return ListView.builder(
@@ -342,4 +373,3 @@ class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
     );
   }
 }
-

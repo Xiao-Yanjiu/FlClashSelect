@@ -1149,6 +1149,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "proxyGroupNameDuplicate": MessageLookupByLibrary.simpleMessage(
       "Название группы прокси уже используется",
     ),
+    "proxyMonitorEmpty": MessageLookupByLibrary.simpleMessage(
+      "Подключений прокси пока нет",
+    ),
+    "proxyMonitorRoute": MessageLookupByLibrary.simpleMessage("Правило / узел"),
+    "proxyMonitorTitle": MessageLookupByLibrary.simpleMessage(
+      "Монитор подключений прокси",
+    ),
+    "proxyMonitorUnknown": MessageLookupByLibrary.simpleMessage(
+      "Неизвестное приложение",
+    ),
     "proxyNode": MessageLookupByLibrary.simpleMessage("Прокси-узел"),
     "proxyProviders": MessageLookupByLibrary.simpleMessage("Провайдеры прокси"),
     "proxyProvidersEmpty": MessageLookupByLibrary.simpleMessage(
@@ -1521,6 +1531,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectTypeProcess": MessageLookupByLibrary.simpleMessage("Программа"),
     "selectUnknownDomain": MessageLookupByLibrary.simpleMessage(
       "Домен неизвестен",
+    ),
+    "selectUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Не удалось проверить обновления GitHub. Проверьте соединение и повторите.",
     ),
     "selectWaiting": MessageLookupByLibrary.simpleMessage("Ожидание ядра"),
     "selected": MessageLookupByLibrary.simpleMessage("Выбрано"),

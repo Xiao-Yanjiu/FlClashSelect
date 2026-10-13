@@ -449,8 +449,8 @@ enum DashboardWidget {
   runTime,
   proxyGroups,
   profiles,
-  selectTraffic(platforms: [SupportPlatform.Windows]),
-  selectProxyPanel(platforms: [SupportPlatform.Windows]),
+  selectTraffic(platforms: [SupportPlatform.Windows, SupportPlatform.Android]),
+  selectProxyPanel(platforms: [SupportPlatform.Windows, SupportPlatform.Android]),
   trafficSummary;
 
   final List<SupportPlatform> platforms;

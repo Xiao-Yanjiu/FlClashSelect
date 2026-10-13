@@ -15,3 +15,6 @@ FlClash Select 保留 FlClash 的 GNU GPL v3 许可，全文见根目录 LICENSE
 未改写第三方版权与许可。plugins/rust_api/LICENSE 的上游占位说明不另行解释为独立授权；来源和整项目许可保留。GeoIP/ASN/GeoSite 数据及图标、字体继续按各自提供方许可使用；GPL 声明不替代数据或素材的原有许可。
 
 本仓库及源码压缩包包含 WinDivert 对应源码；发布包附带 GPL、ProxyBridge、WinDivert 许可及 Flutter 生成的依赖通知。阅读每份许可原文，许可证中原有免责条款仍适用。
+
+
+Android 构建另附 ANDROID_THIRD_PARTY_NOTICES.txt（从本次 APK 的 Flutter notices 生成）及 ANDROID_NATIVE_PROVENANCE.json；JNI/Go/Rust 原生库来自匹配上游 GPL 项目，Android 依赖保留其 MIT/BSD/Apache 等各自许可，根许可不覆盖第三方许可。

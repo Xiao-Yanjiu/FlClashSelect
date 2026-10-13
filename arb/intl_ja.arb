@@ -835,5 +835,10 @@
   "selectProxyPanel": "プロキシカード",
   "selectLiveSpeed": "リアルタイム速度",
   "selectAccumulatedTraffic": "累積通信量",
-  "trafficSummary": "速度と通信量"
+  "trafficSummary": "速度と通信量",
+  "proxyMonitorTitle": "プロキシ接続モニター",
+  "proxyMonitorRoute": "ルール / ノード",
+  "proxyMonitorEmpty": "プロキシ接続はまだありません",
+  "proxyMonitorUnknown": "不明なアプリ",
+  "selectUpdateFailed": "GitHub 更新を確認できません。接続を確認して再試行してください。"
 }

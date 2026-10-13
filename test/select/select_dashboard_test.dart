@@ -108,5 +108,44 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     },
   );
-}
+  testWidgets(
+    'Android monitor has no interception switch and handles empty and failed snapshots',
+    (tester) async {
+      Future<void> pump(Future<Map<String, dynamic>> Function() reader) async {
+        await tester.pumpWidget(
+          ProviderScope(
+            child: TestApp(
+              child: Scaffold(
+                body: DashboardWidgetMetrics(
+                  unitHeight: 80,
+                  child: SelectTrafficCard(monitor: true, reader: reader),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+      }
 
+      await pump(
+        () async => {
+          'updated': DateTime.now().toUtc().toIso8601String(),
+          'flows': [],
+        },
+      );
+      expect(find.text('Proxy connection monitor'), findsOneWidget);
+      expect(find.byKey(const ValueKey('select-engine-toggle')), findsNothing);
+      expect(find.text('No observed proxy connections'), findsOneWidget);
+      final header = find.byKey(const ValueKey('select-group-1'));
+      final color = tester.widget<Text>(header).style!.color;
+      await tester.tap(header);
+      await tester.pump();
+      expect(tester.widget<Text>(header).style!.color, isNot(color));
+      await tester.pumpWidget(const SizedBox());
+      await pump(() async => throw StateError('Core unavailable'));
+      expect(find.text('No observed proxy connections'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+}

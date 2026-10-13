@@ -88,3 +88,9 @@ select-test-data/
 *.exe
 *.dll
 *.sys
+
+# Private Android signing / machine setup
+android/local.properties
+*.jks
+*.keystore
+private/

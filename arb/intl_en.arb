@@ -835,5 +835,10 @@
   "selectProxyPanel": "Proxy card",
   "selectLiveSpeed": "Live proxy speed",
   "selectAccumulatedTraffic": "Cumulative traffic",
-  "trafficSummary": "Speed and traffic"
+  "trafficSummary": "Speed and traffic",
+  "proxyMonitorTitle": "Proxy connection monitor",
+  "proxyMonitorRoute": "Rule / node",
+  "proxyMonitorEmpty": "No observed proxy connections",
+  "proxyMonitorUnknown": "Unknown app",
+  "selectUpdateFailed": "Unable to check GitHub updates. Check your connection and retry."
 }
