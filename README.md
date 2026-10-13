@@ -33,3 +33,6 @@
 `lib/select/` 为选择性代理逻辑；`plugins/select_engine/` 包含拦截引擎、托盘/转发辅助程序和驱动对应源码；`core/cmd/select-speed/` 为测速程序。`core/Clash.Meta/` 在本仓库直接包含源码快照，固定来源版本见 [UPSTREAM.md](UPSTREAM.md)。
 
 问题请提交到 [本仓库 Issues](https://github.com/Xiao-Yanjiu/FlClashSelect/issues)，附版本、Windows 版本、复现步骤和已脱敏的日志。
+
+
+免安装包内目录为 `FlClashSelect-v0.17`。首次启动默认关闭“自启动”“静默启动”“自动运行”，窗口正常显示，请先添加订阅或配置。升级并保留旧 `select-data` 时会保留用户之前的设置；可在“工具 → 常规设置 → 启动与后台”手动关闭这三项。
