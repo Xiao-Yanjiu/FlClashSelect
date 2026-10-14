@@ -17,7 +17,8 @@ import '../widget_metrics.dart';
 class SelectTrafficCard extends ConsumerStatefulWidget {
   final Future<Map<String, dynamic>> Function()? reader;
   final bool? monitor;
-  const SelectTrafficCard({super.key, this.reader, this.monitor});
+  final double? height;
+  const SelectTrafficCard({super.key, this.reader, this.monitor, this.height});
   @override
   ConsumerState<SelectTrafficCard> createState() => _SelectTrafficCardState();
 }
@@ -202,7 +203,7 @@ class _SelectTrafficCardState extends ConsumerState<SelectTrafficCard> {
     final l = context.appLocalizations;
     final style = context.textTheme.bodySmall;
     return SizedBox(
-      height: DashboardWidgetMetrics.heightOf(context, 4),
+      height: widget.height ?? DashboardWidgetMetrics.heightOf(context, 4),
       child: CommonCard(
         radius: DashboardWidgetMetrics.radiusOf(context),
         child: Padding(

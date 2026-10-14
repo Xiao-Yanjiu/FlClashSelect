@@ -7,3 +7,8 @@
 应用 ID 为 com.xiaoyanjiu.flclashselect，APK 由维护者固定私钥独立签名。以后安装同签名版本可覆盖升级；保留签名才能延续更新。无真机自动测试承诺：发布流程验证编译、APK 签名、结构和自动化模型/界面检查；请在手机上验证自身订阅、VPN 和连接识别。
 
 源码沿用 GPL v3，署名、上游原生库来源及第三方许可见 LICENSE、UPSTREAM.md、THIRD_PARTY_NOTICES.md、ANDROID_NATIVE_PROVENANCE.json。上游原生库来自同版本官方 APK，界面和 Android Kotlin/Java 模块重新构建，不宣称全包从零重建。
+
+
+## v0.19.0 仪表盘操作
+
+内核按钮同时控制 VPN，首次仍需系统 VPN 授权。点击编辑后可直接拖动卡片；拖动监控卡片底部的调整条改变高度，保存后保留。代理卡片不显示 Timeout 节点；整组延迟测试仍会测试这些节点，成功后再次显示。

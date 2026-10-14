@@ -4,9 +4,9 @@
 
 ## 下载
 
-[Windows v0.18.1 免安装包和源码](https://github.com/Xiao-Yanjiu/FlClashSelect/releases/tag/v0.18.1) · [Android v0.18.0 APK](https://github.com/Xiao-Yanjiu/FlClashSelect/releases/tag/v0.18.0)
+[v0.19.0：Windows 免安装包、Android APK 与源码](https://github.com/Xiao-Yanjiu/FlClashSelect/releases/tag/v0.19.0)
 
-下载 `FlClashSelect-0.18.1-windows-portable.zip`，解压整个目录后运行 `FlClashSelect.exe`。更新前备份 `select-data`，退出旧版本后启动新版本。发布包不包含订阅、节点账号或个人设置。首次默认窗口为 **1400×720**。
+下载 `FlClashSelect-0.19.0-windows-portable.zip`，解压整个目录后运行 `FlClashSelect.exe`。更新前备份 `select-data`，退出旧版本后启动新版本。发布包不包含订阅、节点账号或个人设置。首次默认窗口为 **1400×720**。
 
 ## 功能
 
@@ -35,13 +35,16 @@
 问题请提交到 [本仓库 Issues](https://github.com/Xiao-Yanjiu/FlClashSelect/issues)，附版本、Windows 版本、复现步骤和已脱敏的日志。
 
 
-免安装包内目录为 `FlClashSelect-v0.18.1`。首次启动默认关闭“自启动”“静默启动”“自动运行”，窗口正常显示，请先添加订阅或配置。Windows 设置独立保存在 `select-data/shared_preferences.json`，新解压目录不会读取其他安装的设置。已有 `select-data/database.sqlite` 且没有独立设置文件时，仅迁移旧配置与版本记录，保留配置选择，并关闭这三项；之后尊重用户保存的设置。旧系统设置文件不修改。
+免安装包内目录为 `FlClashSelect-v0.19.0`。首次启动默认关闭“自启动”“静默启动”“自动运行”，窗口正常显示，请先添加订阅或配置。Windows 设置独立保存在 `select-data/shared_preferences.json`，新解压目录不会读取其他安装的设置。已有 `select-data/database.sqlite` 且没有独立设置文件时，仅迁移旧配置与版本记录，保留配置选择，并关闭这三项；之后尊重用户保存的设置。旧系统设置文件不修改。
 
 
 ## Android 与更新
 
-Android 安装 `FlClashSelect-0.18.0-android-arm64.apk`，需要 64 位 ARM 手机。保留订阅、节点切换、延迟测试、VPN 和规则功能；不含 Windows 选择性代理驱动、托盘或下载测速 EXE。代理监控显示应用、域名/IP、规则/节点及流量，可按表头分组合并。无法识别的信息标记为未知；每秒读取的快照可能遗漏极短连接，最多保留当前卡片会话的 2000 个连接观测，流量以最后观测值为准。
+Android 安装 `FlClashSelect-0.19.0-android-arm64.apk`，需要 64 位 ARM 手机。保留订阅、节点切换、延迟测试、VPN 和规则功能；不含 Windows 选择性代理驱动、托盘或下载测速 EXE。代理监控显示应用、域名/IP、规则/节点及流量，可按表头分组合并。无法识别的信息标记为未知；每秒读取的快照可能遗漏极短连接，最多保留当前卡片会话的 2000 个连接观测，流量以最后观测值为准。
 
 两端在“工具 → 关于 → 检查更新”读取本仓库公开 Releases，自动检查也使用本仓库。包含测试版，按平台选择 Windows ZIP 或 Android arm64 APK；只提示并打开下载链接，不自动覆盖文件或安装。检测失败会明确显示网络错误。0.17 及更早版本需要先手动升级到 0.18 才能使用本仓库更新检测。
 
 APK 使用独立应用 ID `com.xiaoyanjiu.flclashselect` 与本项目签名，可和原版共存。签名私钥只保存在维护者本地，源码和发布包不含私钥。无需使用原作者 Firebase 工程，本构建不包含 Firebase 遥测依赖。移动端首次使用 VPN 需要系统授权。
+
+
+Android VPN 与内核按钮同步开启/关闭，不再占据单独卡片。仪表盘编辑时直接拖动卡片换位，监控卡片下边缘可调整高度并保存。两端仪表盘代理卡片隐藏 Timeout 节点，未测试节点仍显示，整组重新测试成功后恢复显示。

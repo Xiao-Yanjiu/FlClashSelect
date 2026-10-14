@@ -225,7 +225,7 @@ SharedState sharedState(Ref ref) {
     localNetworkTip: currentAppLocalizations.localNetworkDeniedTip,
     setupParams: SetupParams(selectedMap: selectedMap, testUrl: testUrl),
     vpnOptions: VpnOptions(
-      enable: vpnSetting.enable && !safeMode,
+      enable: (system.isAndroid || vpnSetting.enable) && !safeMode,
       stack: stack,
       // VpnService.setHttpProxy cannot carry credentials, so an authenticated
       // mixed port must not be declared as the system HTTP proxy; traffic

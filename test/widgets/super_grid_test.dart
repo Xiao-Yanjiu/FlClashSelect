@@ -43,12 +43,16 @@ class _Harness extends StatefulWidget {
   final List<String> labels;
   final bool editing;
   final ValueChanged<List<GridItem>>? onChanged;
+  final Map<Key, ValueChanged<double>> onResize;
+  final ValueChanged<Key>? onResizeEnd;
 
   const _Harness({
     required this.gridKey,
     required this.labels,
     this.editing = true,
     this.onChanged,
+    this.onResize = const {},
+    this.onResizeEnd,
   });
 
   @override
@@ -75,6 +79,8 @@ class _HarnessState extends State<_Harness> {
               setState(() => _children = items);
               widget.onChanged?.call(items);
             },
+            onResize: widget.onResize,
+            onResizeEnd: widget.onResizeEnd,
             children: _children,
           ),
         ),
@@ -84,6 +90,43 @@ class _HarnessState extends State<_Harness> {
 }
 
 void main() {
+  testWidgets(
+    'bottom edge resizes without reordering and appears only while editing',
+    (tester) async {
+      final key = GlobalKey<SuperGridState>();
+      var delta = 0.0;
+      var ended = false;
+      final changes = <List<String>>[];
+      await tester.pumpWidget(
+        _Harness(
+          gridKey: key,
+          labels: const ['A', 'B'],
+          onResize: {const ValueKey('A'): (value) => delta += value},
+          onResizeEnd: (_) => ended = true,
+          onChanged: (items) => changes.add(_labels(items)),
+        ),
+      );
+      final handle = find.byKey(ValueKey('resize-${const ValueKey('A')}'));
+      expect(handle, findsOneWidget);
+      await tester.drag(handle, const Offset(0, 60));
+      await _settle(tester);
+      expect(delta, greaterThan(20));
+      expect(ended, isTrue);
+      expect(changes, isEmpty);
+      expect(_labels(key.currentState!.items), ['A', 'B']);
+      await tester.pumpWidget(
+        _Harness(
+          gridKey: key,
+          labels: const ['A', 'B'],
+          editing: false,
+          onResize: {const ValueKey('A'): (_) {}},
+        ),
+      );
+      await tester.pump();
+      expect(handle, findsNothing);
+      expect(tester.takeException(), isNull);
+    },
+  );
   testWidgets('SuperGrid flies an added item into its slot', (tester) async {
     final key = GlobalKey<SuperGridState>();
     final changes = <List<String>>[];

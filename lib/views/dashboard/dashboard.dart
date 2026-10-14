@@ -14,6 +14,7 @@ import 'widget_metrics.dart';
 import 'widget_registry.dart';
 import 'widgets/core_status_button.dart';
 import 'widgets/start_button.dart';
+import 'widgets/select_traffic_card.dart';
 
 typedef _IsEditWidgetBuilder = Widget Function(bool isEdit);
 
@@ -31,6 +32,7 @@ class _DashboardViewState extends ConsumerState<DashboardView>
   final _addedWidgetsNotifier = ValueNotifier<List<GridItem>>([]);
   late final _addSheetController = SnapSheetController(vsync: this);
   int _landingCount = 0;
+  double? _monitorResizeUnits;
 
   @override
   void initState() {
@@ -168,7 +170,17 @@ class _DashboardViewState extends ConsumerState<DashboardView>
   }
 
   void _handleExitEdit() {
+    _saveMonitorHeight(const ValueKey(DashboardWidget.selectTraffic));
     _isEditNotifier.value = false;
+  }
+
+  void _saveMonitorHeight(Key key) {
+    final units = _monitorResizeUnits;
+    if (units == null) return;
+    ref
+        .read(appSettingProvider.notifier)
+        .update((state) => state.copyWith(proxyMonitorHeightUnits: units));
+    setState(() => _monitorResizeUnits = null);
   }
 
   void _saveDashboardWidgets(List<GridItem> items) {
@@ -185,6 +197,11 @@ class _DashboardViewState extends ConsumerState<DashboardView>
       profilesProvider.select((state) => state.isNotEmpty),
     );
     final spacing = cardSpacing;
+    final double savedMonitorHeightUnits = ref.watch(
+      appSettingProvider.select((state) => state.proxyMonitorHeightUnits),
+    );
+    final double monitorHeightUnits =
+        _monitorResizeUnits ?? savedMonitorHeightUnits;
     final children = [
       ...dashboardState.dashboardWidgets
           .where(
@@ -232,11 +249,57 @@ class _DashboardViewState extends ConsumerState<DashboardView>
                                 crossAxisSpacing: spacing,
                                 mainAxisSpacing: spacing,
                                 onChanged: _saveDashboardWidgets,
+                                onResize: system.isAndroid
+                                    ? {
+                                        const ValueKey(
+                                          DashboardWidget.selectTraffic,
+                                        ): (delta) {
+                                          setState(() {
+                                            _monitorResizeUnits =
+                                                ((_monitorResizeUnits ??
+                                                            monitorHeightUnits) +
+                                                        delta /
+                                                            (dashboardUnitHeight(
+                                                                  constraints
+                                                                      .maxWidth,
+                                                                ) +
+                                                                spacing))
+                                                    .clamp(2.0, 10.0);
+                                          });
+                                        },
+                                      }
+                                    : const {},
+                                onResizeEnd: _saveMonitorHeight,
                                 revealPadding: padding.copyWith(
                                   left: 0,
                                   right: 0,
                                 ),
-                                children: children,
+                                children: [
+                                  for (final item in children)
+                                    if (system.isAndroid &&
+                                        item.key ==
+                                            const ValueKey(
+                                              DashboardWidget.selectTraffic,
+                                            ))
+                                      GridItem(
+                                        key: item.key,
+                                        crossAxisCellCount:
+                                            item.crossAxisCellCount,
+                                        child: SelectTrafficCard(
+                                          height: max(
+                                            monitorHeightUnits *
+                                                    (dashboardUnitHeight(
+                                                          constraints.maxWidth,
+                                                        ) +
+                                                        spacing) -
+                                                spacing,
+                                            0,
+                                          ),
+                                        ),
+                                      )
+                                    else
+                                      item,
+                                ],
                               );
                               return DashboardWidgetMetrics(
                                 unitHeight: dashboardUnitHeight(

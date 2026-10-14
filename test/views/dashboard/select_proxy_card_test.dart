@@ -105,4 +105,36 @@ void main() {
     expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox());
   });
+  testWidgets('timeout nodes hide and return after a successful retest', (
+    tester,
+  ) async {
+    container.read(groupsProvider.notifier).value = [
+      _group('Proxy', ['Good', 'Failed', 'Untested']),
+    ];
+    final url = container.read(realTestUrlProvider(null));
+    container.read(delayDataSourceProvider.notifier).setDelays([
+      Delay(url: url, name: 'Good', value: 80),
+      Delay(url: url, name: 'Failed', value: -1),
+    ]);
+    await pumpCard(tester);
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widgetList<ProxyCard>(find.byType(ProxyCard))
+          .map((card) => card.proxy.name),
+      ['Good', 'Untested'],
+    );
+    container
+        .read(delayDataSourceProvider.notifier)
+        .setDelay(Delay(url: url, name: 'Failed', value: 40));
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widgetList<ProxyCard>(find.byType(ProxyCard))
+          .map((card) => card.proxy.name),
+      ['Failed', 'Good', 'Untested'],
+    );
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox());
+  });
 }

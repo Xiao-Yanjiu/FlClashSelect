@@ -436,7 +436,7 @@ enum DashboardWidget {
   trafficUsage,
   networkDetection,
   tunButton(platforms: desktopPlatforms),
-  vpnButton(platforms: [SupportPlatform.Android]),
+  vpnButton(platforms: []),
   systemProxyButton(platforms: desktopPlatforms),
   intranetIp,
   memoryInfo,
@@ -450,7 +450,9 @@ enum DashboardWidget {
   proxyGroups,
   profiles,
   selectTraffic(platforms: [SupportPlatform.Windows, SupportPlatform.Android]),
-  selectProxyPanel(platforms: [SupportPlatform.Windows, SupportPlatform.Android]),
+  selectProxyPanel(
+    platforms: [SupportPlatform.Windows, SupportPlatform.Android],
+  ),
   trafficSummary;
 
   final List<SupportPlatform> platforms;

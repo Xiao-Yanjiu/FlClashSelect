@@ -49,7 +49,7 @@ HotKeyAction _defaultHotKeyAction(HotAction action, PhysicalKeyboardKey key) {
 }
 
 // Windows reports AltGr as Ctrl+Alt, and every letter is an AltGr character
-// on some layout (@ on German Q, ś on Polish S), so a default there would fire
+// on some layout (@ on German Q, 艣 on Polish S), so a default there would fire
 // while the user types.
 final List<HotKeyAction> defaultHotKeyActions = system.isWindows
     ? const []
@@ -156,6 +156,7 @@ abstract class AppSettingProps with _$AppSettingProps {
     @Default(true) bool combinedIpMigrated,
     @Default(false) bool onlyStatisticsProxy,
     @Default(true) bool showNotificationStopAction,
+    @Default(4.0) double proxyMonitorHeightUnits,
     @Default(false) bool autoLaunch,
     @Default(false) bool silentLaunch,
     @Default(false) bool autoRun,

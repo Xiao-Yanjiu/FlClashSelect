@@ -23,6 +23,8 @@ class SuperGrid extends StatefulWidget {
   final double crossAxisSpacing;
   final int crossAxisCount;
   final ValueChanged<List<GridItem>>? onChanged;
+  final Map<Key, ValueChanged<double>> onResize;
+  final ValueChanged<Key>? onResizeEnd;
 
   /// What the page floats over the viewport's edges, kept clear on reveal.
   final EdgeInsets revealPadding;
@@ -35,6 +37,8 @@ class SuperGrid extends StatefulWidget {
     this.mainAxisSpacing = 0,
     this.crossAxisSpacing = 0,
     this.onChanged,
+    this.onResize = const {},
+    this.onResizeEnd,
     this.revealPadding = EdgeInsets.zero,
   });
 
@@ -468,27 +472,51 @@ class SuperGridState extends State<SuperGrid> with TickerProviderStateMixin {
         ),
       ),
     );
-    final draggable = system.isDesktop
-        ? Draggable<Key>(
-            data: key,
-            feedback: feedback,
-            onDragStarted: () => _handleDragStarted(key),
-            onDragUpdate: _handleDragUpdate,
-            onDragEnd: (details) => _handleDragEnd(key, details),
-            child: decorated,
-          )
-        : LongPressDraggable<Key>(
-            data: key,
-            feedback: feedback,
-            onDragStarted: () => _handleDragStarted(key),
-            onDragUpdate: _handleDragUpdate,
-            onDragEnd: (details) => _handleDragEnd(key, details),
-            child: decorated,
-          );
+    final draggable = Draggable<Key>(
+      data: key,
+      feedback: feedback,
+      onDragStarted: () => _handleDragStarted(key),
+      onDragUpdate: _handleDragUpdate,
+      onDragEnd: (details) => _handleDragEnd(key, details),
+      child: decorated,
+    );
     // The shake never stops while editing, and without a boundary here its
     // markNeedsPaint reaches the scroll viewport, so every frame repaints the
     // whole grid instead of one item.
-    return RepaintBoundary(child: draggable);
+    return RepaintBoundary(
+      child: Stack(
+        children: [
+          draggable,
+          if (widget.onResize.containsKey(key))
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 24,
+              child: GestureDetector(
+                key: ValueKey('resize-$key'),
+                behavior: HitTestBehavior.opaque,
+                onVerticalDragUpdate: (details) =>
+                    widget.onResize[key]?.call(details.delta.dy),
+                onVerticalDragEnd: (_) => widget.onResizeEnd?.call(key),
+                onVerticalDragCancel: () => widget.onResizeEnd?.call(key),
+                child: Center(
+                  child: SizedBox(
+                    width: 36,
+                    height: 4,
+                    child: DecoratedBox(
+                      decoration: ShapeDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        shape: AppShape.full,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   GridItem _buildItem(GridItem item, int index) {

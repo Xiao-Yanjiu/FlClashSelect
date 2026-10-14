@@ -22,6 +22,8 @@ _AppSettingProps _$AppSettingPropsFromJson(
   onlyStatisticsProxy: json['onlyStatisticsProxy'] as bool? ?? false,
   showNotificationStopAction:
       json['showNotificationStopAction'] as bool? ?? true,
+  proxyMonitorHeightUnits:
+      (json['proxyMonitorHeightUnits'] as num?)?.toDouble() ?? 4.0,
   autoLaunch: json['autoLaunch'] as bool? ?? false,
   silentLaunch: json['silentLaunch'] as bool? ?? false,
   autoRun: json['autoRun'] as bool? ?? false,
@@ -84,6 +86,7 @@ Map<String, dynamic> _$AppSettingPropsToJson(_AppSettingProps instance) =>
       'combinedIpMigrated': instance.combinedIpMigrated,
       'onlyStatisticsProxy': instance.onlyStatisticsProxy,
       'showNotificationStopAction': instance.showNotificationStopAction,
+      'proxyMonitorHeightUnits': instance.proxyMonitorHeightUnits,
       'autoLaunch': instance.autoLaunch,
       'silentLaunch': instance.silentLaunch,
       'autoRun': instance.autoRun,

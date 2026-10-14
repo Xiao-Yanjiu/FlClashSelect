@@ -1,5 +1,5 @@
 {
-  "version": "0.18.0",
+  "version": "0.19.0",
   "package": "com.xiaoyanjiu.flclashselect",
   "abi": [
     "arm64-v8a"
@@ -8,6 +8,6 @@
   "target_sdk": 37,
   "signature_scheme": "APK v2",
   "certificate_sha256": "237f3d2e5e69785239ddb0a4083d2297579013756f6db85f349181b3ca45594f",
-  "apk_sha256": "8b6da4fcc0c9e3cd2e998d3801981f5f4af37619eef0fca4643732c8d1757ba1",
+  "apk_sha256": "831fe342c41975e7aee57e1f08bbaf0d5dbd6cb3694e1503110c24062cb5f62b",
   "real_device_tested": false
 }

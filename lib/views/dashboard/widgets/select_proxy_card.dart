@@ -76,6 +76,9 @@ class _SelectProxyCardState extends ConsumerState<SelectProxyCard> {
         delayProvider(proxyName: node.name, testUrl: group?.testUrl),
       );
     }
+    nodes.removeWhere(
+      (node) => delays[node.name] != null && delays[node.name]! <= 0,
+    );
     nodes.sort((a, b) {
       final left = delays[a.name], right = delays[b.name];
       if (left == null && right == null) return a.name.compareTo(b.name);
